@@ -1,0 +1,509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BYSDNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Table_Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Publisher" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_Attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="127" Nullable="false" />
+          <Property Name="FileSize" Type="nvarchar" MaxLength="63" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_LogEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperationTypeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LogType" Type="nvarchar" MaxLength="31" Nullable="false" />
+          <Property Name="OriginValue" Type="nvarchar" MaxLength="511" />
+          <Property Name="NewValue" Type="nvarchar" MaxLength="511" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_OperationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="LogEntityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_OperationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tittle" Type="nvarchar" MaxLength="254" Nullable="false" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="254" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Publisher" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="127" Nullable="false" />
+          <Property Name="Sexy" Type="bit" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="varchar" MaxLength="511" />
+          <Property Name="Photo" Type="varchar" MaxLength="511" />
+          <Property Name="Rate" Type="int" />
+        </EntityType>
+        <Association Name="FK_Table_Answer_Table_Question">
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="1" />
+          <End Role="Table_Answer" Type="Self.Table_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Answer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Answer_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_Answer" Type="Self.Table_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Answer">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Attachments_Table_Question">
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="1" />
+          <End Role="Table_Attachments" Type="Self.Table_Attachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Attachments">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_LogEntity_Table_OperationType">
+          <End Role="Table_OperationType" Type="Self.Table_OperationType" Multiplicity="1" />
+          <End Role="Table_LogEntity" Type="Self.Table_LogEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_OperationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_LogEntity">
+              <PropertyRef Name="OperationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_OperationLog_Table_LogEntity">
+          <End Role="Table_LogEntity" Type="Self.Table_LogEntity" Multiplicity="1" />
+          <End Role="Table_OperationLog" Type="Self.Table_OperationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_LogEntity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_OperationLog">
+              <PropertyRef Name="LogEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_OperationLog_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_OperationLog" Type="Self.Table_OperationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_OperationLog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Question_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Question">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BYSDNModelStoreContainer">
+          <EntitySet Name="Table_Answer" EntityType="Self.Table_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Attachments" EntityType="Self.Table_Attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_LogEntity" EntityType="Self.Table_LogEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_OperationLog" EntityType="Self.Table_OperationLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_OperationType" EntityType="Self.Table_OperationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Question" EntityType="Self.Table_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_User" EntityType="Self.Table_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_Answer_Table_Question" Association="Self.FK_Table_Answer_Table_Question">
+            <End Role="Table_Question" EntitySet="Table_Question" />
+            <End Role="Table_Answer" EntitySet="Table_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Answer_Table_User" Association="Self.FK_Table_Answer_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_Answer" EntitySet="Table_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Attachments_Table_Question" Association="Self.FK_Table_Attachments_Table_Question">
+            <End Role="Table_Question" EntitySet="Table_Question" />
+            <End Role="Table_Attachments" EntitySet="Table_Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_LogEntity_Table_OperationType" Association="Self.FK_Table_LogEntity_Table_OperationType">
+            <End Role="Table_OperationType" EntitySet="Table_OperationType" />
+            <End Role="Table_LogEntity" EntitySet="Table_LogEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_OperationLog_Table_LogEntity" Association="Self.FK_Table_OperationLog_Table_LogEntity">
+            <End Role="Table_LogEntity" EntitySet="Table_LogEntity" />
+            <End Role="Table_OperationLog" EntitySet="Table_OperationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_OperationLog_Table_User" Association="Self.FK_Table_OperationLog_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_OperationLog" EntitySet="Table_OperationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Question_Table_User" Association="Self.FK_Table_Question_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_Question" EntitySet="Table_Question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BYSDNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Table_Answer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="QuestionID" Type="Guid" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Publisher" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Table_Question" Relationship="Self.FK_Table_Answer_Table_Question" FromRole="Table_Answer" ToRole="Table_Question" />
+          <NavigationProperty Name="Table_User" Relationship="Self.FK_Table_Answer_Table_User" FromRole="Table_Answer" ToRole="Table_User" />
+        </EntityType>
+        <EntityType Name="Table_Attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="QuestionID" Type="Guid" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileSize" Type="String" MaxLength="63" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Table_Question" Relationship="Self.FK_Table_Attachments_Table_Question" FromRole="Table_Attachments" ToRole="Table_Question" />
+        </EntityType>
+        <EntityType Name="Table_LogEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="OperationTypeID" Type="Guid" Nullable="false" />
+          <Property Name="LogType" Type="String" MaxLength="31" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OriginValue" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="511" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Table_OperationType" Relationship="Self.FK_Table_LogEntity_Table_OperationType" FromRole="Table_LogEntity" ToRole="Table_OperationType" />
+          <NavigationProperty Name="Table_OperationLog" Relationship="Self.FK_Table_OperationLog_Table_LogEntity" FromRole="Table_LogEntity" ToRole="Table_OperationLog" />
+        </EntityType>
+        <EntityType Name="Table_OperationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LogEntityID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Table_LogEntity" Relationship="Self.FK_Table_OperationLog_Table_LogEntity" FromRole="Table_OperationLog" ToRole="Table_LogEntity" />
+          <NavigationProperty Name="Table_User" Relationship="Self.FK_Table_OperationLog_Table_User" FromRole="Table_OperationLog" ToRole="Table_User" />
+        </EntityType>
+        <EntityType Name="Table_OperationType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Table_LogEntity" Relationship="Self.FK_Table_LogEntity_Table_OperationType" FromRole="Table_OperationType" ToRole="Table_LogEntity" />
+        </EntityType>
+        <EntityType Name="Table_Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Tittle" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tags" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Publisher" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Table_Answer" Relationship="Self.FK_Table_Answer_Table_Question" FromRole="Table_Question" ToRole="Table_Answer" />
+          <NavigationProperty Name="Table_Attachments" Relationship="Self.FK_Table_Attachments_Table_Question" FromRole="Table_Question" ToRole="Table_Attachments" />
+          <NavigationProperty Name="Table_User" Relationship="Self.FK_Table_Question_Table_User" FromRole="Table_Question" ToRole="Table_User" />
+        </EntityType>
+        <EntityType Name="Table_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="127" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sexy" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="511" FixedLength="false" Unicode="false" />
+          <Property Name="Photo" Type="String" MaxLength="511" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Int32" />
+          <NavigationProperty Name="Table_Answer" Relationship="Self.FK_Table_Answer_Table_User" FromRole="Table_User" ToRole="Table_Answer" />
+          <NavigationProperty Name="Table_OperationLog" Relationship="Self.FK_Table_OperationLog_Table_User" FromRole="Table_User" ToRole="Table_OperationLog" />
+          <NavigationProperty Name="Table_Question" Relationship="Self.FK_Table_Question_Table_User" FromRole="Table_User" ToRole="Table_Question" />
+        </EntityType>
+        <Association Name="FK_Table_Answer_Table_Question">
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="1" />
+          <End Role="Table_Answer" Type="Self.Table_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Answer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Answer_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_Answer" Type="Self.Table_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Answer">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Attachments_Table_Question">
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="1" />
+          <End Role="Table_Attachments" Type="Self.Table_Attachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Attachments">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_LogEntity_Table_OperationType">
+          <End Role="Table_OperationType" Type="Self.Table_OperationType" Multiplicity="1" />
+          <End Role="Table_LogEntity" Type="Self.Table_LogEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_OperationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_LogEntity">
+              <PropertyRef Name="OperationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_OperationLog_Table_LogEntity">
+          <End Role="Table_LogEntity" Type="Self.Table_LogEntity" Multiplicity="1" />
+          <End Role="Table_OperationLog" Type="Self.Table_OperationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_LogEntity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_OperationLog">
+              <PropertyRef Name="LogEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_OperationLog_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_OperationLog" Type="Self.Table_OperationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_OperationLog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Question_Table_User">
+          <End Role="Table_User" Type="Self.Table_User" Multiplicity="1" />
+          <End Role="Table_Question" Type="Self.Table_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Table_Question">
+              <PropertyRef Name="Publisher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BYSDNEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Table_Answer" EntityType="Self.Table_Answer" />
+          <EntitySet Name="Table_Attachments" EntityType="Self.Table_Attachments" />
+          <EntitySet Name="Table_LogEntity" EntityType="Self.Table_LogEntity" />
+          <EntitySet Name="Table_OperationLog" EntityType="Self.Table_OperationLog" />
+          <EntitySet Name="Table_OperationType" EntityType="Self.Table_OperationType" />
+          <EntitySet Name="Table_Question" EntityType="Self.Table_Question" />
+          <EntitySet Name="Table_User" EntityType="Self.Table_User" />
+          <AssociationSet Name="FK_Table_Answer_Table_Question" Association="Self.FK_Table_Answer_Table_Question">
+            <End Role="Table_Question" EntitySet="Table_Question" />
+            <End Role="Table_Answer" EntitySet="Table_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Answer_Table_User" Association="Self.FK_Table_Answer_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_Answer" EntitySet="Table_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Attachments_Table_Question" Association="Self.FK_Table_Attachments_Table_Question">
+            <End Role="Table_Question" EntitySet="Table_Question" />
+            <End Role="Table_Attachments" EntitySet="Table_Attachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_LogEntity_Table_OperationType" Association="Self.FK_Table_LogEntity_Table_OperationType">
+            <End Role="Table_OperationType" EntitySet="Table_OperationType" />
+            <End Role="Table_LogEntity" EntitySet="Table_LogEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_OperationLog_Table_LogEntity" Association="Self.FK_Table_OperationLog_Table_LogEntity">
+            <End Role="Table_LogEntity" EntitySet="Table_LogEntity" />
+            <End Role="Table_OperationLog" EntitySet="Table_OperationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_OperationLog_Table_User" Association="Self.FK_Table_OperationLog_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_OperationLog" EntitySet="Table_OperationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Question_Table_User" Association="Self.FK_Table_Question_Table_User">
+            <End Role="Table_User" EntitySet="Table_User" />
+            <End Role="Table_Question" EntitySet="Table_Question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BYSDNModelStoreContainer" CdmEntityContainer="BYSDNEntities">
+          <EntitySetMapping Name="Table_Answer">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_Answer">
+              <MappingFragment StoreEntitySet="Table_Answer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Attachments">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_Attachments">
+              <MappingFragment StoreEntitySet="Table_Attachments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_LogEntity">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_LogEntity">
+              <MappingFragment StoreEntitySet="Table_LogEntity">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OperationTypeID" ColumnName="OperationTypeID" />
+                <ScalarProperty Name="LogType" ColumnName="LogType" />
+                <ScalarProperty Name="OriginValue" ColumnName="OriginValue" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_OperationLog">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_OperationLog">
+              <MappingFragment StoreEntitySet="Table_OperationLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LogEntityID" ColumnName="LogEntityID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_OperationType">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_OperationType">
+              <MappingFragment StoreEntitySet="Table_OperationType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Question">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_Question">
+              <MappingFragment StoreEntitySet="Table_Question">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_User">
+            <EntityTypeMapping TypeName="BYSDNModel.Table_User">
+              <MappingFragment StoreEntitySet="Table_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sexy" ColumnName="Sexy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

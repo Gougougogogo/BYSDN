@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "NewQuestion";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Development file</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <!--
+    <script type="text/javascript">less = {env: "development", async: false};</script>
+    <link rel="stylesheet/less" type="text/css" href="../../js/tinymce/skins/lightgray/skin.dev.less">
+    <script src="../../node_modules/less/dist/less-1.4.2.min.js"></script>
+    -->
+    <script src="~/Content/js/tinyMCE/tinymce.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/table/plugin.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/paste/plugin.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/spellchecker/plugin.min.js"></script>
+    <script src="~/Content/page/newQuestion.js"></script>
+    <style >
+        .label {
+            font-size:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">New Question</h3>
+                <div class="panel-options">
+                    <a href="#" data-toggle="panel">
+                        <span class="collapse-icon">–</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+                    @*<a href="#" data-toggle="remove">
+                        ×
+                    </a>*@
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="font-size:16px" for="title">Subjests:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="title" type="text" placeholder="Inputs the question">
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="tags">Tags:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tags" data-role="tagsinput" value="Automation,C#,MVC" />
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="tagsinput-1">Content:</label>
+                        <div class="col-sm-10">
+                            <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 80%"></textarea>
+                            <div class="mail-single-attachments">
+                                <h3>
+                                    <i class="linecons-attach"></i>
+                                    Attachments
+                                </h3>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-3 text-center">
+                                        <div id="advancedDropzone" class="droppable-area">
+                                            Drop Files Here
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <table class="table table-bordered table-striped" id="attachmentsList">
+                                            <thead>
+                                                <tr>
+                                                    <th width="1%" class="text-center">#</th>
+                                                    <th width="50%">Name</th>
+                                                    <th width="20%">Upload Progress</th>
+                                                    <th>Size</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="5">Files list will appear here</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                        </div>
+                        <button class="btn btn-info col-sm-1" type="button" onclick="publish()">
+                            Publish
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <script src="~/Content/js/dropzone/dropzone.min.js"></script>
+    <script src="~/Content/js/tagsinput/bootstrap-tagsinput.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Registe";
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="~/Content/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="~/Content/css/xenon-core.css">
+    <link rel="stylesheet" href="~/Content/css/xenon-forms.css">
+    <link rel="stylesheet" href="~/Content/css/xenon-components.css">
+    <link rel="stylesheet" href="~/Content/css/xenon-skins.css">
+    <link rel="stylesheet" href="~/Content/css/custom.css" />
+    <link rel="stylesheet" href="~/Content/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/js/cropper/cropper.css" />
+    <link rel="stylesheet" href="~/Content/js/cropper/main.css" />
+    <link href="~/Content/js/layer/skin/layer.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/js/layer/layer.js"></script>
+    <title >Registe - WelCome to visit BYSDN</title>
+</head>
+<body class="page-body login-page">
+    <div class="login-container">
+        <div class="row">
+            <div class="col-sm-6">
+                <script type="text/javascript">
+                    jQuery(document).ready(function ($) {
+                        // Reveal Login form
+                        setTimeout(function () { $(".fade-in-effect").addClass('in'); }, 1);
+                        // Set Form focus
+                        $("form#login .form-group:has(.form-control):first .form-control").focus();
+                    });
+                </script>
+                <!-- Errors container -->
+                <div class="errors-container"></div>
+                <!-- Add class "fade-in-effect" for login form effect -->
+                <div class="login-form fade-in-effect">
+                    <div class="login-header">
+                        <a href="#" class="logo">
+                            <img src="~/Content/img/logo-white-bg@2x.png"/>
+                            <span>Registe</span>
+                        </a>
+                        <p>Dear user, welcome to viste BYSDN!</p>
+                    </div>
+                    <div class="form-group">
+                        <a style="cursor:pointer" onclick="showCropWindow()">
+                            <img id="userPhotos" width="80" height="80" src="~/Content/img/user-4.png" class="img-cirlce img-inline" />
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <!--@Request.LogonUserIdentity.Name-->
+                        <input type="text" value="@ViewBag.Name" class="form-control input-dark" disabled="disabled" id="username" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                    <select class="form-control input-dark" id="sexSelect">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>                   
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">What's in your mind?</label>
+                        <textarea class="form-control input-dark" id="Comments" style="height:200px"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="requestRegist()" style="float:right" class="btn btn-dark text-left">
+                            <i class="fa-send"></i>
+                            Let's Go
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="setUeerPhoto">
+        <div class="modal-dialog" style="width: 96%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 style="color:gray" class="modal-title">Change User Photo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div id="advancedDropzone" class="btn btn-info">
+                                Upload Image
+                            </div>
+                        </div>
+                        <div id="preview-template" style="display: none;"></div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="img-container" id="img-container">
+                                <img id="userPhoto" src="" alt="picture" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="docs-preview clearfix" id="img-preview">
+                                <div class="corpimg-preview preview-lg"></div>
+                                <div class="corpimg-preview preview-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" onclick="commitChange()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Imported styles on this page -->
+    <link rel="stylesheet" href="assets/js/dropzone/css/dropzone.css">
+
+    <!-- Bottom Scripts -->
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/TweenMax.min.js"></script>
+    <script src="~/Content/js/resizeable.js"></script>
+    <script src="~/Content/js/joinable.js"></script>
+    <script src="~/Content/js/xenon-api.js"></script>
+    <script src="~/Content/js/xenon-toggles.js"></script>
+    <script src="~/Content/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/Content/js/toastr/toastr.min.js"></script>
+
+    <!-- Imported scripts on this page -->
+    <script src="~/Content/js/dropzone/dropzone.min.js"></script>
+    <!-- JavaScripts initializations and stuff -->
+    <script src="~/Content/js/xenon-custom.js"></script>
+
+    <script src="~/Content/js/cropper/cropper.min.js"></script>
+
+    <script src="~/Content/page/registe.js"></script>
+</body>
+</html>
+

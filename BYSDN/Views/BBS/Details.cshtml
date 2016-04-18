@@ -1,0 +1,154 @@
+﻿@model BYSDN.Models.BBSContentModel    
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<html>
+<head>
+    <title>Details</title>
+    <style>
+        p {
+            color: black;
+            font-size: 16px;
+        }
+
+        pre {
+            padding: 0;
+        }
+
+        .bbsTitle {
+            margin-top: 30px;
+            margin-left: 30px;
+            text-wrap:normal;
+        }
+
+        .replyContent {
+            margin-top: 20px;
+            background-color:white;
+        }
+
+        .replyOrder {
+            margin-top: 10px;
+            margin-left: 30px;
+        }
+
+        .bbsAttachments {
+            margin: 5px 30px;
+        }
+
+        .mail-single-attachments h4 {
+            font-size:16px;
+            color:gray;
+        }
+
+        .fa-2x {
+            font-size:2em;
+        }
+
+        .attchamentsTitle p {
+            font-size:12px;
+            color:gray;
+        }
+
+        .bbsAttachments ul {
+            padding:10px 5px;
+        }
+
+    </style>
+
+    @*<link href="~/Content/js/highlight/styles/vs.css" rel="stylesheet" />*@
+    <link href="~/Content/js/highlight/styles/obsidian.css" rel="stylesheet" />
+    @*<link href="~/Content/js/highlight/styles/zenburn.css" rel="stylesheet" />*@
+    <script src="~/Content/js/tinyMCE/tinymce.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/table/plugin.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/paste/plugin.min.js"></script>
+    <script src="~/Content/js/tinyMCE/plugins/spellchecker/plugin.min.js"></script>
+    <script src="~/Content/js/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-sm-12" style="background-color:white">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="bbsTitle" id="title">
+                        @Model.Title
+                        <small>[@Model.Tags]</small>
+                    </h2>
+                </div>
+            </div>
+            <a class="go-back" href="@Url.Action("Index","BBS")" style="margin-left:20px;color:gray;font-size:16px">
+                <i class="fa-angle-left"></i>
+                Go Back
+            </a>
+            <hr style="margin-bottom:5px" />
+            <div class="row">
+                <div class="col-sm-1">
+                    <img width="38" style="float:right" src="@Model.PublisherImg">
+                </div>
+                <div class="col-sm-5">
+                    <em style="font-size:14px">@Model.PublisherName</em>
+                    <p style="color: gray">(@Model.PublisherEmail)</p>
+                </div>
+                <div class="col-sm-3" style="float:right;margin-top:20px">
+                    <p style="float:right;color:gray">@Model.Date</p>
+                </div>
+            </div>
+            <hr style="margin-top:5px" />
+            <div id="content" style="padding:0px 50px;margin-bottom:30px">
+                @Html.Raw(Model.Content)
+            </div>  
+            <hr />          
+            <div class="bbsAttachments">               
+                <div class="mail-single-attachments">
+                    <h4>
+                        <i class="linecons-attach"></i>
+                        Attachments
+                    </h4>
+                </div>
+                <ul id="attmentsList" class="list-unstyled list-inline">
+                    
+                </ul>
+                <hr />
+            </div>            
+            <div class="row">
+                <div class="col-xs-11"></div>
+                <a href="#reply" class="btn btn-info col-xs-1">
+                    Reply
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="replys">
+        <div class="row replyContent" id="replyContents">
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="background-color:white">
+                <ul id="pagination" class="pagination"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="reply" class="row" style="margin-top:30px;background-color:white">
+        <div class="panel panel-default">
+            <!-- Add class "collapsed" to minimize the panel -->
+            <div class="panel-heading">
+                <h2>Reply</h2>
+                <hr />
+            </div>
+            <textarea id="elm1" name="elm1" rows="15" cols="80" style="width: 80%"></textarea>
+            <hr />
+            <a class="btn btn-danger" onclick="submitReply()" style="float:right;margin-right:10px" href="#">
+                Submit
+            </a>
+        </div>
+    </div>
+    <script src="~/Content/js/pagination/jquery.twbsPagination.min.js"></script>
+    <script src="~/Content/page/deatils.js"></script>
+</body>
+</html>
+

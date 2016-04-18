@@ -1,0 +1,118 @@
+﻿@model BYSDN.Models.BBSHomePageDataModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+<html>
+<head>
+    <title >BBS</title>
+
+    <style>
+        .bbsBody li {
+            position: relative;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dotted #E9E9E9;
+            cursor: pointer;
+        }
+
+        .bbsTitle{
+            font-size:16px;
+            color:#373e4a;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var currentPage = 0;
+        $(document).ready(function(){
+            var pageCount = (@Model.PageCount);
+            $('#pagination').twbsPagination({
+                totalPages: pageCount,
+                visiblePages: 5,
+                onPageClick: function (event, page) {
+                    currentPage = page;
+                    getBBSContent(page);
+                }
+            });
+        });        
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="row" style="background-color:white">
+                <div class="col-sm-9">
+                    <div class="input-group input-group-lg input-group-minimal" style="margin-top:10px;margin-bottom:10px">
+                        <input class="form-control" type="text" id="searchText" placeholder="Search for something…" onmouseup="mouseUp(this)">
+                        <span class="input-group-addon" style="cursor:pointer" onclick="search()">
+                            <i class="linecons-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-turquoise" style="margin-top:13px;font-size:18px">New Question</button>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px">
+                <div class="panel panel-default">
+                    <!-- Add class "collapsed" to minimize the panel -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Questions</h3>
+
+                        <div class="panel-options">
+
+                            <a  data-toggle="panel" style="cursor:pointer">
+                                <span class="collapse-icon">–</span>
+                                <span class="expand-icon">+</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul id="bbsList" class="list-unstyled bbsBody" style="min-height: 700px">
+
+                        </ul>
+                        <div>
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-color panel-info" style="padding-bottom:0px">
+                <!-- Add class "collapsed" to minimize the panel -->
+                <div class="panel-heading" style="padding:15px 30px">
+                    <h4 class="panel-title">Operations</h4>
+                    <div class="panel-options">                        
+                        <a href="#" data-toggle="panel">
+                            <span class="collapse-icon">–</span>
+                            <span class="expand-icon">+</span>
+                        </a>
+                        <a href="#" data-toggle="remove">
+                            ×
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding-top:10px">
+                    <ul class="list-unstyled" style="cursor:pointer">
+                        <li>
+                            <h5>New Question</h5>
+                            <hr />
+                        </li>
+                        <li>
+                            <h5>My Questions<span class="label label-info pull-right">@Model.QuestionCount</span></h5>
+                            <hr />
+                        </li>
+                        <li>
+                            <h5>My Answeres<span class="label label-info pull-right">@Model.AnswersCount</span></h5>
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/js/pagination/jquery.twbsPagination.min.js"></script>
+    <script src="~/Content/page/bbsHome.js"></script>
+</body>
+</html>

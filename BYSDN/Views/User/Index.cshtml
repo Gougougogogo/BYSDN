@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<html>
+<head>
+    <title >(@Request.LogonUserIdentity.Name)'s Main Page</title>
+
+    <style>
+        .cbp_tmlabel{
+            border:1px solid #ddd
+        }
+        .empty {
+            border:none;
+        }
+
+        @@keyframes fadeInFrames{
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .tab-pane {
+            animation-name: fadeInFrames;
+            animation-duration: 1.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="tabs-vertical-env tabs-vertical-bordered">
+                <!-- add class "right-aligned" for the right aligned tabs -->
+                <ul class="nav tabs-vertical">
+                    <li class="active"><a href="#timeLine" data-toggle="tab">Time Line</a></li>
+                    <li><a href="#questions" data-toggle="tab">Questions</a></li>
+                    <li><a href="#answers" data-toggle="tab">Answers</a></li>
+                    @*<li><a href="#blogs" data-toggle="tab">Blogs</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="timeLine">
+                        <ul class="cbp_tmtimeline">
+                            <li>
+                                <time class="cbp_tmtime" datetime="2014-10-03T18:30"><span class="hidden">03/10/2014</span> <span class="large">Now</span></time>
+
+                                <div class="cbp_tmicon timeline-bg-gray">
+                                    <i class="fa-user"></i>
+                                </div>
+
+                                <div class="cbp_tmlabel empty">
+                                    <span>No Activity</span>
+                                </div>
+                            </li>        
+                                              
+                            @*<li>
+                                <time class="cbp_tmtime" datetime="2014-09-19T20:23"><span>08:23 PM</span> <span>Two weeks ago</span></time>
+
+                                <div class="cbp_tmicon timeline-bg-info">
+                                    <i class="fa-reply"></i>
+                                </div>
+
+                                <div class="cbp_tmlabel">
+                                    <h2>Reply a question</h2>
+
+                                    <blockquote><a style="cursor:pointer">C# 如何使用？[C#,MVC]</a></blockquote>
+                                </div>
+                            </li>   
+                            
+                            <li>
+                                <time class="cbp_tmtime" datetime="2014-09-19T20:23"><span>08:23 PM</span> <span>12/3/2016</span></time>
+
+                                <div class="cbp_tmicon timeline-bg-danger">
+                                    <i class="fa-paper-plane"></i>
+                                </div>
+
+                                <div class="cbp_tmlabel">
+                                    <h2>Submit a question</h2>
+
+                                    <blockquote><a style="cursor:pointer">C# 如何使用？[C#,MVC]</a></blockquote>
+                                </div>
+                            </li>      
+                            
+                            <li>
+                                <time class="cbp_tmtime" datetime="2014-09-19T20:23"><span>08:23 PM</span> <span>12/3/2016</span></time>
+
+                                <div class="cbp_tmicon timeline-bg-success">
+                                    <i class="fa-user"></i>
+                                </div>
+
+                                <div class="cbp_tmlabel">
+                                    <h2>Regist</h2>
+
+                                    <blockquote>First time log in BYSDN.</blockquote>
+                                </div>
+                            </li>*@                      
+                        </ul>
+                        <br />
+                        <div class="row" id="viewMore">
+                            <div class="col-xs-5"></div>
+                            <div class="col-xs-2">
+                                <a style="cursor:pointer" onclick="UserManager.getMore()">View More</a>
+                            </div>
+                            <div class="col-xs-5"></div>
+                        </div>                        
+                    </div>
+                    <div class="tab-pane" id="questions">
+                        
+                    </div>
+                    <div class="tab-pane" id="answers">
+                        
+                    </div>                 
+                    <div class="tab-pane" id="blogs">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="profile-env">
+            <div class="col-xs-3" style="background:#fff">
+                <div class="user-info-sidebar">
+
+                    <a href="#" class="user-img" style="margin-top:12px">
+                        <img src="~/Content/img/image.jpeg" width="100" height="100" alt="user-img" class="img-cirlce" />
+                    </a>
+
+                    <a href="#" class="user-name">
+                        @Request.LogonUserIdentity.Name
+                        <span class="user-status is-online"></span>
+                    </a>
+
+                    <span class="user-title" >
+                        <strong>LV1</strong>
+                    </span>
+
+                    <hr />
+
+                    <div style="min-height:100px;padding:0px 15px">
+                        <p>There's nothing.</p>
+                    </div>
+
+                    <hr />
+
+                    <ul class="list-unstyled user-friends-count">
+                        <li>
+                            <span>112</span>
+                            Questions
+                        </li>
+                        <li>
+                            <span>713</span>
+                            Answers
+                        </li>
+                        <li>
+                            <span>61</span>
+                            Blogs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <script src="~/Content/page/user.js"></script>
+    </div>   
+</body>
+</html>
+

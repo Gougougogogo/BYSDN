@@ -1,0 +1,212 @@
+﻿@model BYSDN.Models.HomePageModel
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+<html>
+<body>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4">
+
+                    <div class="xe-widget xe-vertical-counter xe-vertical-counter-orange" data-duration="2.5" data-suffix="%" data-to="128.4" data-from="0" data-count=".num" data-decimal=",">
+                        <div class="xe-icon">
+                            <i class="fa-female"></i>
+                        </div>
+
+                        <div class="xe-label">
+                            <strong class="num">@Model.UserCount</strong>
+                            <span>User Count</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+
+                    <div class="xe-widget xe-vertical-counter xe-vertical-counter-danger" data-duration="3" data-suffix="%" data-to="67.9" data-from="0" data-count=".num" data-decimal=",">
+                        <div class="xe-icon">
+                            <i class="fa-question"></i>
+                        </div>
+
+                        <div class="xe-label">
+                            <strong class="num">@Model.QuestionCount</strong>
+                            <span>Today's Questions</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="xe-widget xe-vertical-counter xe-vertical-counter-info" data-duration="4" data-to="128" data-from="0" data-count=".num">
+                        <div class="xe-icon">
+                            <i class="fa-twitch"></i>
+                        </div>
+
+                        <div class="xe-label">
+                            <strong class="num">@Model.AnswerCount</strong>
+                            <span>Today's Answers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="xe-widget xe-conversations">
+                        <div class="xe-header">
+                            <div class="xe-icon">
+                                <i class="linecons-comment"></i>
+                            </div>
+                            <div class="xe-label">
+                                <h3>
+                                    New Questions
+                                    <small>Latest question</small>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="xe-body">
+                            <ul class="list-unstyled">
+                                @foreach (var obj in Model.LatestQuestion)
+                                {
+                                <li>
+                                    <a style="cursor:pointer" href="@Url.Action("Details", "BBS", new { Id = obj.BBSId.ToString()})">
+                                        <div class="xe-comment-entry">
+                                            <div class="xe-user-img" >
+                                                <img width="40" class="img-circle" src="@obj.UserImage">
+                                            </div>
+
+                                            <div class="xe-comment">
+                                                <div class="xe-user-name">
+                                                    <strong>@obj.Title <small>[@obj.Tags]</small></strong>
+                                                </div>
+
+                                                <p>@obj.Brief</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="xe-widget xe-conversations">
+                <div class="xe-header">
+                    <div class="xe-icon">
+                        <i class="fa-star-o fa-2x"></i>
+                    </div>
+                    <div class="xe-label">
+                        <h3>
+                            BYSDN STAR
+                            <small>Most active person rank</small>
+                        </h3>
+                    </div>
+                </div>
+                <div class="xe-widget xe-conversations" style="padding:0">
+                    <div class="xe-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="xe-comment-entry">
+                                    <a class="xe-user-img" href="#">
+                                        <img width="40" class="img-circle" src="~/Content/img/image.jpeg">
+                                    </a>
+
+                                    <div class="xe-comment">
+                                        <a class="xe-user-name" href="#">
+                                            <strong style="color:red">Jack Gates</strong>
+                                        </a>
+                                        <p>In it except to so temper mutual tastes mother. Interested cultivated its continuing now yet are. asdgasdgasdgasdgadsgasdgasd</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="xe-comment-entry">
+                                    <a class="xe-user-img" href="#">
+                                        <img width="40" class="img-circle" src="~/Content/img/image.jpeg">
+                                    </a>
+                                    <div class="xe-comment">
+                                        <a class="xe-user-name" href="#">
+                                            <strong>Arlind Nushi</strong>
+                                            <span class="label label-secondary">5</span>
+                                        </a>
+                                        <p>Age sold some full like rich new. Amounted repeated as believed in confined juvenile.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="xe-comment-entry">
+                                    <a class="xe-user-img" href="#">
+                                        <img width="40" class="img-circle" src="~/Content/img/image.jpeg">
+                                    </a>
+                                    <div class="xe-comment">
+                                        <a class="xe-user-name" href="#">
+                                            <strong>Bryan Green</strong>
+                                        </a>
+                                        <p>Stuff sight equal of my woody. Him children bringing goodness suitable she entirely put far daughter.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="xe-comment-entry">
+                                    <a class="xe-user-img" href="#">
+                                        <img width="40" class="img-circle" src="~/Content/img/image.jpeg">
+                                    </a>
+                                    <div class="xe-comment">
+                                        <a class="xe-user-name" href="#">
+                                            <strong>Arlind Nushi</strong>
+                                            <span class="label label-secondary">5</span>
+                                        </a>
+                                        <p>Age sold some full like rich new. Amounted repeated as believed in confined juvenile.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="xe-comment-entry">
+                                    <a class="xe-user-img" href="#">
+                                        <img width="40" class="img-circle" src="~/Content/img/image.jpeg">
+                                    </a>
+                                    <div class="xe-comment">
+                                        <a class="xe-user-name" href="#">
+                                            <strong>Bryan Green</strong>
+                                        </a>
+                                        <p>Stuff sight equal of my woody. Him children bringing goodness suitable she entirely put far daughter.</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Summary</h3>
+                    <div class="panel-options">
+                        <a href="#" data-toggle="panel">
+                            <span class="collapse-icon">&ndash;</span>
+                            <span class="expand-icon">+</span>
+                        </a>
+                        <a href="#" data-toggle="remove">
+                            &times;
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="summary" style="height: 400px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/js/devexpress-web-14.1/js/globalize.min.js"></script>
+    <script src="~/Content/js/devexpress-web-14.1/js/dx.chartjs.js"></script>
+    <script src="~/Content/page/dashboard.js"></script>
+</body>
+</html>
+

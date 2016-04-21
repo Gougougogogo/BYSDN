@@ -7,8 +7,9 @@ window.onload = function () {
         success: function (e) {
             person = e;
             if (e) {
-                $('#userImg').attr("src", person.Img);
-                $('#userImg1').attr("src", person.Img);
+                var imgPath = person.Img.replace("..","http://"+window.location.host );
+                $('#userImg').attr("src", imgPath);
+                $('#userImg1').attr("src", imgPath);
             }
         }
     });

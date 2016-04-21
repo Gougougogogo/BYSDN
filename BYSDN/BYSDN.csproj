@@ -1612,6 +1612,7 @@
     <Content Include="Content\page\bbsHome.js" />
     <Content Include="Content\page\dashboard.js" />
     <Content Include="Content\page\deatils.js" />
+    <Content Include="Content\page\layout.js" />
     <Content Include="Content\page\newQuestion.js" />
     <Content Include="Content\page\registe.js" />
     <Content Include="Content\page\user.js" />

@@ -1,4 +1,18 @@
 ﻿$(document).ready(function () {
+    //$.ajax({
+    //    url: '/Home/GetUserInfo',
+    //    cache: false,
+    //    success: function (e) {
+    //        person = e;
+    //        if (e) {
+    //            $('#userImg2').attr("src", person.Img);
+    //        }
+    //    }
+    //});
+    setTimeout(function () {
+        var path = $('#userImg1').attr("src");
+        $('#userImg2').attr("src", path);
+    }, 2000);
     UserManager.requestTimelineBody();
 });
 

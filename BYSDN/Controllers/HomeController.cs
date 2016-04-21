@@ -23,6 +23,7 @@ namespace BYSDN.Controllers
                 return RedirectToAction("Registe", "User");
             }
 
+
             DateTime yesterday = DateTime.Now.AddDays(-1).ToUniversalTime();
 
             var userCount = (from a in entities.Table_User
@@ -88,6 +89,17 @@ namespace BYSDN.Controllers
             }
 
             return Json(new { success = true, retData = summary }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetUserInfo()
+        {
+            var person = (from a in entities.Table_User
+                          where a.Name == Request.LogonUserIdentity.Name
+                          select new { 
+                            Img = a.Photo,
+                            Comment = a.Comments
+                          }).FirstOrDefault();
+            return Json(person, JsonRequestBehavior.AllowGet);
         }
 
         private string GetBrief(string htmlContent)

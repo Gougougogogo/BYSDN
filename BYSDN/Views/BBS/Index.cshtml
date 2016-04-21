@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn btn-turquoise" style="margin-top:13px;font-size:18px">New Question</button>
+                    <a href="@Url.Action("NewQuestion","BBS")" class="btn btn-turquoise" style="margin-top:13px;font-size:18px">New Question</a>
                 </div>
             </div>
             <div class="row" style="margin-top:20px">
@@ -96,7 +96,9 @@
                 <div class="panel-body" style="padding-top:10px">
                     <ul class="list-unstyled" style="cursor:pointer">
                         <li>
-                            <h5>New Question</h5>
+                            <a href="@Url.Action("NewQuestion","BBS")">
+                                <h5>New Question</h5>
+                            </a>
                             <hr />
                         </li>
                         <li>
